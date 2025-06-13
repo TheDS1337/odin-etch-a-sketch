@@ -18,10 +18,15 @@ for( let i = 0; i < 16; i++ ) {
 
         square.style.height = "50px";
         square.style.width = "50px";
-        square.style.backgroundColor = getRandomColor();
+        square.style.backgroundColor = "#a79e84" /*getRandomColor()*/;
 
         row.appendChild(square);
     }
 
     grid.appendChild(row);
 }
+
+// Hoovering event propagation to the parent container
+grid.addEventListener("mousemove", (event) => {
+    event.target.style.backgroundColor = "#454140";
+});

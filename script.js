@@ -1,3 +1,11 @@
+const getRandomColor = () => {
+    let randomR = Math.floor(Math.random() * 255);
+    let randomG = Math.floor(Math.random() * 255);
+    let randomB = Math.floor(Math.random() * 255);
+
+    return `rgb(${randomR}, ${randomG}, ${randomB})`;
+}
+
 const generateGrid = () => {
     // First digit approximation is just weird in JS
     const squareSize = Math.floor(800 / gridSize).toString() + 'px';
@@ -31,7 +39,7 @@ const clearGrid = () => {
         while( row.firstChild )
             row.lastChild.remove();
         
-        grid.lastChild.remove();
+        row.remove();
     }
 }
 
@@ -42,7 +50,7 @@ generateGrid();
 
 // Hovering event propagation to the parent container
 grid.addEventListener("mouseover", (event) => {
-    event.target.style.backgroundColor = "#454140";
+    event.target.style.backgroundColor = getRandomColor();
 });
 
 grid.addEventListener("mouseout", (event) => {

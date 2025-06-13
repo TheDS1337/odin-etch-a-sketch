@@ -26,7 +26,11 @@ for( let i = 0; i < 16; i++ ) {
     grid.appendChild(row);
 }
 
-// Hoovering event propagation to the parent container
-grid.addEventListener("mousemove", (event) => {
+// Hovering event propagation to the parent container
+grid.addEventListener("mouseover", (event) => {
     event.target.style.backgroundColor = "#454140";
+});
+
+grid.addEventListener("mouseout", (event) => {
+    event.target.style.backgroundColor = "#a79e84";
 });

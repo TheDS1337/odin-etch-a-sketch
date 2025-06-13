@@ -70,7 +70,7 @@ grid.addEventListener("mouseout", (event) => {
 
 const button = document.querySelector("#number-of-squares");
 button.addEventListener("click", () => {
-    gridSize = parseInt(prompt("How many squares do you want in either size? (max. 100)"));
+    gridSize = parseInt(prompt("How many squares do you want in either size? (max. 100)", 1));
 
     if( !Number.isInteger(gridSize) || gridSize <= 0 ) {
         console.warn("Non-integer value or negative value of gridSize.");

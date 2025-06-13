@@ -1,30 +1,44 @@
-const getRandomColor = () => {
-    let randomize = Math.random();
-    return randomize === 0.5 ? getRandomColor() : randomize > 0.5 ? "#454140" : "#a79e84";
+const generateGrid = () => {
+    // First digit approximation is just weird in JS
+    const squareSize = Math.floor(800 / gridSize).toString() + 'px';
+
+    for( let i = 0; i < gridSize; i++ ) {
+        const row = document.createElement("div");
+
+        row.classList.add("grid_row");
+        row.style.display = "flex";
+
+        for( let j = 0; j < gridSize; j++ ) {
+            const square = document.createElement("div");
+
+            square.classList.add("grid_square");
+
+            square.style.height = squareSize;
+            square.style.width = squareSize;
+            square.style.backgroundColor = "#a79e84";
+
+            row.appendChild(square);
+        }
+
+        grid.appendChild(row);
+    }
 }
+
+const clearGrid = () => {
+    while( grid.firstChild ) {
+        const row = grid.lastChild;
+
+        while( row.firstChild )
+            row.lastChild.remove();
+        
+        grid.lastChild.remove();
+    }
+}
+
+let gridSize = 16;
 
 const grid = document.querySelector("#grid");
-
-for( let i = 0; i < 16; i++ ) {
-    const row = document.createElement("div");
-
-    row.classList.add("grid_row");
-    row.style.display = "flex";
-
-    for( let j = 0; j < 16; j++ ) {
-        const square = document.createElement("div");
-
-        square.classList.add("grid_square");
-
-        square.style.height = "50px";
-        square.style.width = "50px";
-        square.style.backgroundColor = "#a79e84" /*getRandomColor()*/;
-
-        row.appendChild(square);
-    }
-
-    grid.appendChild(row);
-}
+generateGrid();
 
 // Hovering event propagation to the parent container
 grid.addEventListener("mouseover", (event) => {
@@ -33,4 +47,22 @@ grid.addEventListener("mouseover", (event) => {
 
 grid.addEventListener("mouseout", (event) => {
     event.target.style.backgroundColor = "#a79e84";
+});
+
+const button = document.querySelector("#number-of-squares");
+button.addEventListener("click", () => {
+    gridSize = parseInt(prompt("How many squares do you want in either size? (max. 100)"));
+
+    if( !Number.isInteger(gridSize) || gridSize <= 0 ) {
+        console.warn("Non-integer value or negative value of gridSize.");
+        gridSize = 16;
+    }
+
+    if( gridSize > 100 ) {
+        console.warn(`${gridSize} is computationally expensive, clamping to 100...`);
+        gridSize = 100;
+    }
+
+    clearGrid();
+    generateGrid();
 });

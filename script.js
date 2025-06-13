@@ -48,13 +48,24 @@ let gridSize = 16;
 const grid = document.querySelector("#grid");
 generateGrid();
 
+let mouseClicked = false;
+
 // Hovering event propagation to the parent container
 grid.addEventListener("mouseover", (event) => {
     event.target.style.backgroundColor = getRandomColor();
 });
 
+grid.addEventListener("mousedown", () => {
+    mouseClicked = true;
+});
+
+grid.addEventListener("mouseup", () => {
+    mouseClicked = false;
+});
+
 grid.addEventListener("mouseout", (event) => {
-    event.target.style.backgroundColor = "#a79e84";
+    if( !mouseClicked )
+        event.target.style.backgroundColor = "#a79e84";
 });
 
 const button = document.querySelector("#number-of-squares");
